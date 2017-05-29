@@ -205,10 +205,318 @@ namespace ksd_cache
 			this.parent.addNode (key, new BinaryNode (name, parent, value));
 		}
 	}
-		
+
+	class IntNode : Node
+	{
+		int value;
+
+		public IntNode(string name, Node parent, int value) : base(name,parent)
+		{
+			this.value = value;
+		}
+
+		public override Node get(string key)
+		{
+			if (key == this.name) {
+				return this;
+			}
+
+			throw new NodeNotFoundException (key);
+		}
+
+		public override string toString()
+		{
+			return value.ToString();
+		}
+
+		public override int toInt()
+		{
+			return value;
+		}
+
+		public override double toDouble()
+		{
+			return Cast<double>(value);
+		}
+
+		public override bool toBool()
+		{
+			return Cast<bool>(value);
+		}
+
+		public override byte[] toBinary()
+		{
+			return BitConverter.GetBytes (value); 
+		}
+
+		public override void setValue(string key, string value)
+		{
+			if (key != name) throw new NodeNameMismatchException(key, name);
+			this.parent.addNode (key, new StringNode (name, parent, value));
+		}
+
+		public override void setValue(string key, int value)
+		{
+			if (key != name) throw new NodeNameMismatchException(key, name);
+			this.value = value;
+		}
+
+		public override void setValue(string key, double value)
+		{
+			if (key != name) throw new NodeNameMismatchException(key, name);
+			this.parent.addNode (key, new DoubleNode (name, parent, value));
+		}
+
+		public override void setValue(string key, bool value)
+		{
+			if (key != name) throw new NodeNameMismatchException(key, name);
+			this.parent.addNode (key, new BoolNode (name, parent, value));
+		}
+
+		public override void setValue(string key, byte[] value)
+		{
+			if (key != name) throw new NodeNameMismatchException(key, name);
+			this.parent.addNode (key, new BinaryNode (name, parent, value));
+		}
+	}
+
+	class DoubleNode : Node
+	{
+		double value;
+
+		public DoubleNode(string name, Node parent, double value) : base(name,parent)
+		{
+			this.value = value;
+		}
+
+		public override Node get(string key)
+		{
+			if (key == this.name) {
+				return this;
+			}
+
+			throw new NodeNotFoundException (key);
+		}
+
+		public override string toString()
+		{
+			return value.ToString();
+		}
+
+		public override int toInt()
+		{
+			return Cast<int>(value);
+		}
+
+		public override double toDouble()
+		{
+			return value;
+		}
+
+		public override bool toBool()
+		{
+			return Cast<bool> (value);
+		}
+
+		public override byte[] toBinary()
+		{
+			return BitConverter.GetBytes (value); 
+		}
+
+		public override void setValue(string key, string value)
+		{
+			if (key != name) throw new NodeNameMismatchException(key, name);
+			this.parent.addNode (key, new StringNode (name, parent, value));
+
+		}
+
+		public override void setValue(string key, int value)
+		{
+			if (key != name) throw new NodeNameMismatchException(key, name);
+			this.parent.addNode (key, new IntNode (name, parent, value));
+		}
+
+		public override void setValue(string key, double value)
+		{
+			if (key != name) throw new NodeNameMismatchException(key, name);
+			this.value = value;
+		}
+
+		public override void setValue(string key, bool value)
+		{
+			if (key != name) throw new NodeNameMismatchException(key, name);
+			this.parent.addNode (key, new BoolNode (name, parent, value));
+		}
+
+		public override void setValue(string key, byte[] value)
+		{
+			if (key != name) throw new NodeNameMismatchException(key, name);
+			this.parent.addNode (key, new BinaryNode (name, parent, value));
+		}
+	}
+
+	class BoolNode : Node
+	{
+		bool value;
+
+		public BoolNode(string name, Node parent, bool value) : base(name,parent)
+		{
+			this.value = value;
+		}
+
+		public override Node get(string key)
+		{
+			if (key == this.name) {
+				return this;
+			}
+
+			throw new NodeNotFoundException (key);
+		}
+
+		public override string toString()
+		{
+			return value.ToString();
+		}
+
+		public override int toInt()
+		{
+			return value;
+		}
+
+		public override double toDouble()
+		{
+			return value;
+		}
+
+		public override bool toBool()
+		{
+			return value;
+		}
+
+		public override byte[] toBinary()
+		{
+			return BitConverter.GetBytes (value);
+		}
+
+		public override void setValue(string key, string value)
+		{
+			if (key != name) throw new NodeNameMismatchException(key, name);
+			this.parent.addNode (key, new StringNode (name, parent, value));	
+		}
+
+		public override void setValue(string key, int value)
+		{
+			if (key != name) throw new NodeNameMismatchException(key, name);
+			this.parent.addNode (key, new IntNode (name, parent, value));
+		}
+
+		public override void setValue(string key, double value)
+		{
+			if (key != name) throw new NodeNameMismatchException(key, name);
+			this.parent.addNode (key, new DoubleNode (name, parent, value));
+		}
+
+		public override void setValue(string key, bool value)
+		{
+			if (key != name) throw new NodeNameMismatchException(key, name);
+			this.value = value;
+		}
+
+		public override void setValue(string key, byte[] value)
+		{
+			if (key != name) throw new NodeNameMismatchException(key, name);
+			this.parent.addNode (key, new BinaryNode (name, parent, value));
+		}
+	}
+
+	class BinaryNode : Node
+	{
+		byte[] value;
+
+		public BinaryNode(string name, Node parent, byte[] value) : base(name,parent)
+		{
+			this.value = value;
+		}
+
+		public override Node get(string key)
+		{
+			if (key == this.name) {
+				return this;
+			}
+
+			throw new NodeNotFoundException (key);
+		}
+
+		public override string toString()
+		{
+			return Encoding.Ascii.GetString(value);
+		}
+
+		public override int toInt(valu)
+		{
+			return BitConverter.ToInt32(value);
+		}
+
+		public override double toDouble()
+		{
+			return BitConverter.ToDouble(value);
+		}
+
+		public override bool toBool()
+		{
+			return BitConverter.ToBoolean(value);
+		}
+
+		public override byte[] toBinary()
+		{
+			return value; 
+		}
+
+		public override void setValue(string key, string value)
+		{
+			if (key != name) throw new NodeNameMismatchException(key, name);
+			this.parent.addNode (key, new StringNode (name, parent, value));
+		}
+
+		public override void setValue(string key, int value)
+		{
+			if (key != name) throw new NodeNameMismatchException(key, name);
+			this.parent.addNode (key, new IntNode (name, parent, value));
+		}
+
+		public override void setValue(string key, double value)
+		{
+			if (key != name) throw new NodeNameMismatchException(key, name);
+			this.parent.addNode (key, new DoubleNode (name, parent, value));
+		}
+
+		public override void setValue(string key, bool value)
+		{
+			if (key != name) throw new NodeNameMismatchException(key, name);
+			this.parent.addNode (key, new BoolNode (name, parent, value));
+		}
+
+		public override void setValue(string key, byte[] value)
+		{
+			if (key != name) throw new NodeNameMismatchException(key, name);
+			this.value = value;
+		}
+	}
+
+
     class KsdCache
     {
         Node root = new TreeNode();
+
+		void Store(string key, var value)
+		{
+			root.setValue (key, value);
+		}
+
+		Node Get(string key)
+		{
+			root.get (key);
+		}
     }
 
     class Program
